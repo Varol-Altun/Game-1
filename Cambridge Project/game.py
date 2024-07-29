@@ -170,6 +170,7 @@ class point(object):
                 self.x += self.vel
                 self.walkCount = 0
 
+
 class player(object): 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
