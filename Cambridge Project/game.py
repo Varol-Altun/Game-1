@@ -13,6 +13,7 @@ walkLeft = [pygame.image.load('L1E.png')]
 pa = [pygame.image.load('pa.png')]
 pa1 = [pygame.image.load('pa1.png')]
 
+# ↓ Starting Music ( made it myself :) ) ↓
 #mixer.init()
 #mixer.music.load('Cmaj7Bmin7.wav')
 #mixer.music.play()
@@ -33,11 +34,9 @@ ty = 50
 pnt = 0
 pnt_increment = 10
 
-
 screen = pygame.display.set_mode((WIDTH, HEIGHT), 0, 0)
 bg = pygame.image.load("bg.png")
 a = 'VCR.ttf'
-
 
 
 class enemy(object):
@@ -126,7 +125,8 @@ class bird(object):
                 self.vel = self.vel * -1
                 self.x += self.vel
                 self.walkCount = 0
-                
+
+
 class point(object):
     walkRight = [pygame.image.load('pa.png')]
     walkLeft = [pygame.image.load('pa1.png')]
@@ -192,15 +192,6 @@ class player(object):
             self.acc.x = ACC * 25
         if pressed_keys[pygame.K_UP]:
             self.vel.y = -6
-
-        #print("X acc: ")
-        #print(self.acc.x)
-        #print("Y acc: ")
-        #print(self.acc.y)
-        #print("X vel: ")
-        #print(self.vel.x)
-        #print("Y vel: ")
-        #print(self.vel.y)
         
         tmp_pot_accc = self.acc.x - self.vel.x * FRIC
         if tmp_pot_accc * self.acc.x > 0:
@@ -209,9 +200,6 @@ class player(object):
             self.acc.x = 0
         self.vel += self.acc 
         self.pos += self.vel
-
-        #print("Position: ")
-        #print(self.pos)
 
         if (self.pos.x > 300 and self.pos.x < 380) or (self.pos.x > 520 and self.pos.x < 560):
             self.acc.y = 1
@@ -231,9 +219,6 @@ class player(object):
         if self.acc.y < -5:
             self.acc.y = -5
 
-        #print("Y position: ")
-        #print(self.pos.y)
-
         if self.pos.x > WIDTH:
             self.pos.x = 0
         if self.pos.x < 0:
@@ -244,7 +229,6 @@ class player(object):
      
     def Colision(self,x,y,r):
         dist = math.sqrt((x-self.pos.x) **2 + (y-self.pos.y) **2)
-        #print(enemy, "dist:", dist, "r:", r, "selfR:", self.r, "")
         if dist < r + self.r:
             return True
         return False
@@ -267,8 +251,6 @@ class platform(pygame.sprite.Sprite):
 player = player()
 platform = platform()
 
-
-
 goblin = enemy(100, 250, 64, 64, 245)
 bird1 = bird(-100, 150, 48, 48, 900)
 
@@ -278,6 +260,7 @@ points = point(ran_1, 150, 48, 48, ran_1)
 clock = pygame.time.Clock()
 
 font = pygame.font.Font(a, 35)
+
 
 running = True
 while running:
@@ -297,6 +280,7 @@ while running:
 
     if player.Colision(points.x, points.y, points.r):
         pnt += pnt_increment
+        # ↓ Point Sound ↓
         #mixer.music.load('Point.wav')
         #mixer.music.play()
         #print("Points: ")
